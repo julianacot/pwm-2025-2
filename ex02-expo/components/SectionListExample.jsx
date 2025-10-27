@@ -1,76 +1,28 @@
-import { StyleSheet, Text, View, SectionList, StatusBar } from "react-native";
+import React from "react";
+import { StyleSheet, View, SectionList } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { Text, Title, Card, Appbar } from "react-native-paper";
 
 const DATA = [
-  {
-    title: "Main dishes",
-    data: ["Pizza", "Burger", "Risotto"],
-  },
-  {
-    title: "Sides",
-    data: ["French Fries", "Onion Rings", "Fried Shrimps"],
-  },
-  {
-    title: "Drinks",
-    data: ["Water", "Coke", "Beer"],
-  },
-  {
-    title: "Desserts",
-    data: ["Cheese Cake", "Ice Cream"],
-  },
+  { title: "Main dishes", data: ["Pizza", "Burger", "Risotto"] },
+  { title: "Sides", data: ["French Fries", "Onion Rings", "Fried Shrimps"] },
+  { title: "Drinks", data: ["Water", "Coke", "Beer"] },
+  { title: "Desserts", data: ["Cheese Cake", "Ice Cream"] },
 ];
 
 const names = [
-  "Daisy Lambert",
-  "Mario Cummings",
-  "Nylah Dickerson",
-  "Flynn Costa",
-  "Robin Kerr",
-  "Louie Francis",
-  "Daniella Kennedy",
-  "Maxwell Jaramillo",
-  "Guadalupe Avila",
-  "Jaylen Morse",
-  "Kairi Roach",
-  "Caspian Crawford",
-  "Aubree Hail",
-  "Hector Palacios",
-  "Bria Clay",
-  "Yosef Juarez",
-  "Juliet Ponce",
-  "Langston Sanchez",
-  "Aria Person",
-  "Moses Leach",
-  "Martha Ruiz",
-  "Austin Vance",
-  "Maxine Bates",
-  "Ellis Wilcox",
-  "Ashlyn Santos",
-  "Walker Gilbert",
-  "Jocelyn Phillips",
-  "Andrew Ortiz",
-  "Anna Rivers",
-  "Bear Huffman",
-  "Hayley Crosby",
-  "Tristen Cisneros",
-  "Janelle Meadows",
-  "Wayne Hampton",
-  "Leona Vang",
-  "Jimmy Oliver",
-  "Camille Kramer",
-  "Kylan Cole",
-  "Margaret Brewer",
-  "Cruz Garza",
-  "River Marquez",
-  "Malakai McKinney",
-  "Gwendolyn Hahn",
-  "Kabir Jensen",
-  "Jane Martin",
-  "Mateo Ramos",
-  "Alice Finley",
-  "Calum Espinoza",
-  "Lucille Levy",
-  "Harold Gibbs",
+  "Daisy Lambert", "Mario Cummings", "Nylah Dickerson", "Flynn Costa",
+  "Robin Kerr", "Louie Francis", "Daniella Kennedy", "Maxwell Jaramillo",
+  "Guadalupe Avila", "Jaylen Morse", "Kairi Roach", "Caspian Crawford",
+  "Aubree Hail", "Hector Palacios", "Bria Clay", "Yosef Juarez",
+  "Juliet Ponce", "Langston Sanchez", "Aria Person", "Moses Leach",
+  "Martha Ruiz", "Austin Vance", "Maxine Bates", "Ellis Wilcox", "Ashlyn Santos",
+  "Walker Gilbert", "Jocelyn Phillips", "Andrew Ortiz", "Anna Rivers",
+  "Bear Huffman", "Hayley Crosby", "Tristen Cisneros", "Janelle Meadows",
+  "Wayne Hampton", "Leona Vang", "Jimmy Oliver", "Camille Kramer", "Kylan Cole",
+  "Margaret Brewer", "Cruz Garza", "River Marquez", "Malakai McKinney",
+  "Gwendolyn Hahn", "Kabir Jensen", "Jane Martin", "Mateo Ramos", "Alice Finley",
+  "Calum Espinoza", "Lucille Levy", "Harold Gibbs"
 ];
 
 const sectionNames = [];
@@ -98,12 +50,16 @@ export const SectionListExample = () => (
         sections={sectionNames}
         keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={styles.title}>{item}</Text>
-          </View>
+          <Card style={styles.card}>
+            <Card.Content>
+              <Text style={styles.itemText}>{item}</Text>
+            </Card.Content>
+          </Card>
         )}
         renderSectionHeader={({ section: { title } }) => (
-          <Text style={styles.header}>{title}</Text>
+          <Appbar.Header style={styles.header}>
+            <Appbar.Content title={title} titleStyle={styles.headerText} />
+          </Appbar.Header>
         )}
       />
     </SafeAreaView>
@@ -113,19 +69,24 @@ export const SectionListExample = () => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: StatusBar.currentHeight,
     marginHorizontal: 16,
   },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
+  card: {
+    marginBottom: 10,
+    borderRadius: 10,
+    backgroundColor: "#e0f7fa",
+  },
+  itemText: {
+    fontSize: 18,
+    color: "#00796b",
   },
   header: {
-    fontSize: 32,
-    backgroundColor: "#fff",
+    backgroundColor: "#004d40",
+    marginTop: 20,
   },
-  title: {
+  headerText: {
     fontSize: 24,
+    fontWeight: "bold",
+    color: "#ffffff",
   },
 });
