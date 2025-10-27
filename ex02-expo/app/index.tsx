@@ -1,114 +1,158 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import {
-  Alert,
-  Button,
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-// import { FlatListExample } from "@/components/FlatListExample";
-import { SectionListExample } from "@/components/SectionListExample";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { TextInput, Button, Card, Paragraph, Title, Avatar } from "react-native-paper";
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Index() {
   const router = useRouter();
-  const [idade, onChangeIdade] = useState("");
+  const [idade, setIdade] = useState("");
   const [showDetails, setShowDetails] = useState(true);
+
   const anoNasc = new Date().getFullYear() - parseInt(idade);
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Olá Turma!</Text>
-      <Image
-        style={styles.avatar}
-        source={require("@/assets/images/avatar.jpg")}
-        resizeMode="cover"
-      />
-      <Pressable
-        onPress={() => {
-          setShowDetails(!showDetails);
-        }}
-      >
-        <Text numberOfLines={showDetails ? 0 : 1} style={styles.text}>
-          Este é um App de exemplo da disciplina Programação Web e Mobile do
-          Curso de Ciência da Computação da Universidade Católica de Pernambuco
-          (semestre 2025.2)
-        </Text>
-      </Pressable>
-      {!isNaN(anoNasc) && <Text>Você nasceu em {anoNasc}</Text>}
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeIdade}
-        value={idade}
-        placeholder="Qual a sua idade?"
-        keyboardType="numeric"
-      />
-      <View style={styles.buttonsContainer}>
-        <Button
-          onPress={() => Alert.alert("Botão OK pressionado")}
-          title="     OK     "
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
-        <Button
-          onPress={() => Alert.alert("Botão Cancel pressionado")}
-          title="Cancel"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
-      </View>
-      <Button
-        title="Ir para Lista de Tarefas"
-        onPress={() => router.navigate("/taskList")}
-      />
-      <View style={styles.space} />
-    </ScrollView>
+    <View style={styles.fullContainer}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <LinearGradient colors={['#b2f7ef', '#ade8f4']} style={styles.gradientBackground}>
+          <Card style={styles.card}>
+            <Card.Content>
+              <Title style={styles.title}>Oi!</Title>
+              <View style={styles.avatarWrapper}>
+                <Avatar.Image
+                  size={100}
+                  source={require("@/assets/images/avatar.jpg")}
+                  style={styles.avatar}
+                />
+              </View>
+              <Paragraph
+                numberOfLines={showDetails ? 0 : 1}
+                onPress={() => setShowDetails(!showDetails)}
+                style={styles.text}
+              >
+                Este é um App de exemplo da disciplina Programação Web e Mobile do Curso de Ciência da Computação da Universidade Católica de Pernambuco (semestre 2025.2)
+              </Paragraph>
+              {!isNaN(anoNasc) && <Paragraph style={styles.text}>Você nasceu em {anoNasc}</Paragraph>}
+              <TextInput
+                label="Qual a sua idade?"
+                value={idade}
+                onChangeText={setIdade}
+                keyboardType="numeric"
+                style={styles.input}
+                mode="outlined"
+                outlineColor="#004c6d"
+              />
+              <LinearGradient colors={['#006d77', '#83c5be']} style={styles.buttonWrapper}>
+                <Button
+                  mode="contained"
+                  onPress={() => alert("Botão OK pressionado")}
+                  buttonColor="transparent"
+                  contentStyle={{ height: 50 }}
+                  style={styles.button}
+                >
+                  OK
+                </Button>
+              </LinearGradient>
+              <LinearGradient colors={['#ffb703', '#fb8500']} style={styles.buttonWrapper}>
+                <Button
+                  mode="contained"
+                  onPress={() => alert("Botão Cancel pressionado")}
+                  buttonColor="transparent"
+                  contentStyle={{ height: 50 }}
+                  style={styles.button}
+                >
+                  Cancel
+                </Button>
+              </LinearGradient>
+              <LinearGradient colors={['#8338ec', '#3a0ca3']} style={styles.buttonWrapper}>
+                <Button
+                  mode="contained"
+                  onPress={() => router.navigate("/taskList")}
+                  buttonColor="transparent"
+                  contentStyle={{ height: 50 }}
+                  style={styles.button}
+                >
+                  Ir para Lista de Tarefas
+                </Button>
+              </LinearGradient>
+            </Card.Content>
+          </Card>
+        </LinearGradient>
+      </ScrollView>
+      <LinearGradient colors={['#ffd6a5', '#ffb4a2']} style={styles.footer}>
+        <Paragraph style={styles.footerText}>Rodapé colorido do App</Paragraph>
+      </LinearGradient>
+    </View>
   );
 }
 
-// Exemplos de Listas
-function App() {
-  // return <FlatListExample />;
-  return <SectionListExample />;
-}
-
 const styles = StyleSheet.create({
+  fullContainer: {
+    flex: 1,
+  },
+  gradientBackground: {
+    width: '100%',
+    paddingBottom: 30,
+  },
   container: {
-    justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "beige",
     padding: 15,
   },
+  card: {
+    width: "100%",
+    padding: 20,
+    marginTop: 20,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 8
+  },
   title: {
-    fontSize: 42,
-    fontWeight: "bold",
-    marginBottom: 30,
+    color: "#4b0082",
+    marginBottom: 15,
+    textAlign: "center",
+    fontSize: 28
+  },
+  avatarWrapper: {
+    borderRadius: 60,
+    padding: 5,
+    backgroundColor: "#a0c4ff",
+    alignSelf: "center",
+    marginVertical: 15
   },
   avatar: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
+    borderRadius: 50
   },
   text: {
-    fontSize: 16,
-    marginTop: 30,
+    marginVertical: 10,
+    color: "#333",
+    textAlign: "center",
+    fontSize: 16
   },
   input: {
-    height: 45,
-    width: 200,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+    marginVertical: 10,
+    backgroundColor: "#e0d4ff",
+    borderRadius: 10
   },
-  space: {
-    height: 70,
+  buttonWrapper: {
+    marginVertical: 8,
+    borderRadius: 25,
+    overflow: 'hidden',
+    width: '100%'
   },
-  buttonsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: 250,
+  button: {
+    borderRadius: 25,
   },
+  footer: {
+    padding: 20,
+    alignItems: "center"
+  },
+  footerText: {
+    color: "#333",
+    fontWeight: "bold"
+  }
 });
+
+
